@@ -11,7 +11,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using WinRT.Interop;
 
-namespace ClickToTranslate
+namespace TapLingo
 {
     public sealed partial class TranslationWindow : Window
     {
@@ -40,7 +40,7 @@ namespace ClickToTranslate
             _sourceText = text;
 
             // 1. הגדרות החלון הבסיסיות
-            Title = "תרגום מהיר - ClickToTranslate";
+            Title = "תרגום מהיר - TapLingo";
             SourceTextBox.Text = text;
             EngineLabel.Text = _settings.Engine == TranslationEngine.DeepL ? "DeepL" : "Google";
 

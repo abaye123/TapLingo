@@ -1,6 +1,6 @@
-# ClickToTranslate (WinUI 3 unpackaged)
+# TapLingo (WinUI 3 unpackaged)
 
-גרסת **WinUI 3** של ClickToTranslate - עם Fluent Design מקורי, Mica, פקדי Windows 11 אמיתיים, ו-`setup.exe` יחיד להפצה.
+גרסת **WinUI 3** של TapLingo - עם Fluent Design מקורי, Mica, פקדי Windows 11 אמיתיים, ו-`setup.exe` יחיד להפצה.
 
 ## 🎨 מה השתנה לעומת גרסת WPF?
 
@@ -36,7 +36,7 @@ winget install JRSoftware.InnoSetup
 ### שלב 2: שחזור packages ובנייה
 
 ```powershell
-cd ClickToTranslateWinUI
+cd TapLingoWinUI
 dotnet restore
 dotnet publish -c Release -r win-x64 --self-contained false
 ```
@@ -58,28 +58,28 @@ Invoke-WebRequest -Uri "https://aka.ms/windowsappsdk/1.7/latest/windowsappruntim
 
 ```powershell
 cd Installer
-& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" ClickToTranslate.iss
+& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" TapLingo.iss
 ```
 
-או פשוט פתח את `ClickToTranslate.iss` ב-Inno Setup ולחץ על Build.
+או פשוט פתח את `TapLingo.iss` ב-Inno Setup ולחץ על Build.
 
-**הפלט**: `Installer\Output\ClickToTranslate-Setup-1.0.0.exe` (~50MB)
+**הפלט**: `Installer\Output\TapLingo-Setup-1.0.0.exe` (~50MB)
 
 זה ה-**setup.exe היחיד** שתפיץ למשתמשים.
 
 ## 🚀 חוויית המשתמש
 
-1. המשתמש מוריד `ClickToTranslate-Setup-1.0.0.exe`.
+1. המשתמש מוריד `TapLingo-Setup-1.0.0.exe`.
 2. מריץ אותו - רואה מתקין מוכר בסגנון Windows.
 3. המתקין מתקין אוטומטית את Windows App Runtime אם חסר.
-4. המתקין רושם את הפרוטוקול `clicktotranslate://` (אם נבחרה האפשרות).
+4. המתקין רושם את הפרוטוקול `TapLingo://` (אם נבחרה האפשרות).
 5. בסיום - אפשר לפתוח את התוכנה או להשתמש ישירות דרך Click to Do.
 
 ## 📁 מבנה הפרויקט
 
 ```
-ClickToTranslateWinUI/
-├── ClickToTranslate.csproj          # קובץ פרויקט עם WindowsPackageType=None
+TapLingoWinUI/
+├── TapLingo.csproj          # קובץ פרויקט עם WindowsPackageType=None
 ├── app.manifest                      # DPI awareness, Windows 11 support
 ├── Program.cs                        # Main() מותאם עם Bootstrap.Initialize
 ├── App.xaml / App.xaml.cs            # Application class
@@ -90,12 +90,12 @@ ClickToTranslateWinUI/
 ├── UriProtocolHandler.cs             # רישום ה-scheme ברג'יסטרי
 ├── Assets/                           # אייקונים (ריק, להוסיף .ico)
 └── Installer/
-    ├── ClickToTranslate.iss          # סקריפט Inno Setup
+    ├── TapLingo.iss          # סקריפט Inno Setup
     ├── Redist/
     │   ├── README.md
     │   └── windowsappruntimeinstall-x64.exe  # (להוריד ידנית)
     └── Output/
-        └── ClickToTranslate-Setup-1.0.0.exe  # ← ה-setup.exe הסופי
+        └── TapLingo-Setup-1.0.0.exe  # ← ה-setup.exe הסופי
 ```
 
 ## ⚡ השוואה: מה עובד/לא עובד ב-unpackaged
@@ -109,7 +109,7 @@ ClickToTranslateWinUI/
 - Dark/Light theme אוטומטי
 
 ### ❌ לא עובד (דורש packaged עם package identity)
-- **App Actions API** - דורש package identity. באפליקציה unpackaged אנחנו משתמשים בחלופה: URI scheme שרשום ברג'יסטרי (`clicktotranslate://`). Click to Do יכול לקרוא לנו דרך "פתח באמצעות..." אבל לא נופיע כפעולה מוצעת אוטומטית.
+- **App Actions API** - דורש package identity. באפליקציה unpackaged אנחנו משתמשים בחלופה: URI scheme שרשום ברג'יסטרי (`TapLingo://`). Click to Do יכול לקרוא לנו דרך "פתח באמצעות..." אבל לא נופיע כפעולה מוצעת אוטומטית.
 - Toast notifications עם icon מותאם (עובד בסיסי בלי)
 - File type associations דרך manifest
 - Start menu tiles מותאמים
@@ -142,7 +142,7 @@ ClickToTranslateWinUI/
 Mica לא נתמך במערכת (Windows 10 ישנה). האפליקציה תחזור אוטומטית לרקע רגיל.
 
 ### האפליקציה לא עולה
-בדוק את הלוג ב: `%APPDATA%\ClickToTranslate\errors.log`
+בדוק את הלוג ב: `%APPDATA%\TapLingo\errors.log`
 
 ## 📚 מקורות
 

@@ -2,16 +2,16 @@ using System;
 using System.Diagnostics;
 using Microsoft.Win32;
 
-namespace ClickToTranslate
+namespace TapLingo
 {
     /// <summary>
-    /// רישום ה-URI scheme "clicktotranslate://" ברג'יסטרי של Windows.
+    /// רישום ה-URI scheme "TapLingo://" ברג'יסטרי של Windows.
     /// זה מאפשר ל-Click to Do (או לכל אפליקציה/דפדפן) להפעיל אותנו
-    /// עם URI כמו: clicktotranslate://translate?text=Hello
+    /// עם URI כמו: TapLingo://translate?text=Hello
     /// </summary>
     public static class UriProtocolHandler
     {
-        private const string ProtocolName = "clicktotranslate";
+        private const string ProtocolName = "TapLingo";
 
         public static void Register()
         {
@@ -20,7 +20,7 @@ namespace ClickToTranslate
 
             // HKEY_CURRENT_USER - לא דורש הרשאות אדמין
             using var root = Registry.CurrentUser.CreateSubKey($@"Software\Classes\{ProtocolName}");
-            root.SetValue("", "URL:ClickToTranslate Protocol");
+            root.SetValue("", "URL:TapLingo Protocol");
             root.SetValue("URL Protocol", "");
 
             using (var iconKey = root.CreateSubKey("DefaultIcon"))

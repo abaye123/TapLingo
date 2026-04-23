@@ -4,7 +4,7 @@ using System.Threading;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.ApplicationModel.DynamicDependency;
 
-namespace ClickToTranslate
+namespace TapLingo
 {
     /// <summary>
     /// נקודת כניסה מותאמת אישית. נדרשת ב-WinUI 3 unpackaged כי:
@@ -22,7 +22,7 @@ namespace ClickToTranslate
         public static int Main(string[] args)
         {
             // 1. וידוא שרק מופע אחד של האפליקציה רץ (חשוב לחלונית התרגום)
-            using var mutex = new Mutex(true, "ClickToTranslate_SingleInstance_Mutex_{8F3A2C7E-4B5D-4F1A-9C8E-3D2B1A5F6E7D}", out bool isNewInstance);
+            using var mutex = new Mutex(true, "TapLingo_SingleInstance_Mutex_{8F3A2C7E-4B5D-4F1A-9C8E-3D2B1A5F6E7D}", out bool isNewInstance);
             if (!isNewInstance)
             {
                 // כבר רץ מופע אחר - פשוט יוצאים
@@ -45,7 +45,7 @@ namespace ClickToTranslate
                     "אנא התקן את Microsoft Windows App Runtime 1.7 מהכתובת:\n" +
                     "https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe\n\n" +
                     $"פרטי שגיאה:\n{ex.Message}",
-                    "ClickToTranslate - שגיאת התקנה",
+                    "TapLingo - שגיאת התקנה",
                     0x10 /* MB_ICONERROR */);
                 return 1;
             }

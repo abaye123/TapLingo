@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>ClickToTranslate</RootNamespace>
+    <RootNamespace>TapLingo</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
@@ -17,15 +17,15 @@
     <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
 
-    <AssemblyName>ClickToTranslate</AssemblyName>
+    <AssemblyName>TapLingo</AssemblyName>
     <Version>1.0.0</Version>
 
     <!-- סמל האפליקציה - מוטמע לתוך ה-EXE ומופיע ב-File Explorer, Taskbar, Alt+Tab -->
     <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
 
     <!-- מטא-דאטה שמופיעה בפרטי הקובץ (File Properties → Details) -->
-    <AssemblyTitle>ClickToTranslate</AssemblyTitle>
-    <Product>ClickToTranslate</Product>
+    <AssemblyTitle>TapLingo</AssemblyTitle>
+    <Product>TapLingo</Product>
     <Description>כלי תרגום מהיר עם אינטגרציית Click to Do</Description>
     <Copyright>Copyright © 2026</Copyright>
 

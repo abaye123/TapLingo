@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 
-namespace ClickToTranslate
+namespace TapLingo
 {
     public partial class App : Application
     {
@@ -74,8 +74,8 @@ namespace ClickToTranslate
         {
             if (string.IsNullOrWhiteSpace(arg)) return string.Empty;
 
-            // URI scheme: clicktotranslate://translate?text=Hello
-            if (arg.StartsWith("clicktotranslate:", StringComparison.OrdinalIgnoreCase))
+            // URI scheme: TapLingo://translate?text=Hello
+            if (arg.StartsWith("TapLingo:", StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
@@ -98,7 +98,7 @@ namespace ClickToTranslate
                 }
                 catch
                 {
-                    return arg.Substring("clicktotranslate:".Length).TrimStart('/');
+                    return arg.Substring("TapLingo:".Length).TrimStart('/');
                 }
             }
 
@@ -114,7 +114,7 @@ namespace ClickToTranslate
         private static void ShowMessageBox(string message)
         {
             // ב-WinUI 3 אין MessageBox מובנה; משתמשים ב-Win32 P/Invoke
-            Native.MessageBoxW(IntPtr.Zero, message, "ClickToTranslate", 0x40 /* MB_ICONINFORMATION */);
+            Native.MessageBoxW(IntPtr.Zero, message, "TapLingo", 0x40 /* MB_ICONINFORMATION */);
         }
 
         private static void TryLogError(Exception ex)
@@ -123,7 +123,7 @@ namespace ClickToTranslate
             {
                 var logDir = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "ClickToTranslate");
+                    "TapLingo");
                 Directory.CreateDirectory(logDir);
                 var logFile = Path.Combine(logDir, "errors.log");
                 File.AppendAllText(logFile,

@@ -1,18 +1,18 @@
 ; ============================================================================
-;  ClickToTranslate - Inno Setup Installer Script
+;  TapLingo - Inno Setup Installer Script
 ; ============================================================================
 ; כדי להרכיב את המתקין:
 ;   1. התקן את Inno Setup 6 מ: https://jrsoftware.org/isinfo.php
 ;   2. הרץ: dotnet publish -c Release -r win-x64 (בתיקיית הפרויקט)
 ;   3. ערוך את #define SourceFolder למטה לפי נתיב הפרסום
-;   4. הרץ Inno Setup על הקובץ הזה, או: iscc ClickToTranslate.iss
+;   4. הרץ Inno Setup על הקובץ הזה, או: iscc TapLingo.iss
 ;   5. setup.exe ייווצר בתיקיית Installer\Output
 ; ============================================================================
 
-#define AppName "ClickToTranslate"
+#define AppName "TapLingo"
 #define AppVersion "1.0.0"
-#define AppPublisher "ClickToTranslate"
-#define AppExeName "ClickToTranslate.exe"
+#define AppPublisher "TapLingo"
+#define AppExeName "TapLingo.exe"
 
 ; נתיב הפלט של dotnet publish - שנה בהתאם לצורך
 #define SourceFolder "..\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish"
@@ -25,12 +25,12 @@ AppId={{9C3B5A8E-1F2D-4A6B-B9C8-7D4E3F2A1B5D}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
-AppSupportURL=https://github.com/yourname/ClickToTranslate
+AppSupportURL=https://github.com/yourname/TapLingo
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 OutputDir=Output
-OutputBaseFilename=ClickToTranslate-Setup-{#AppVersion}
+OutputBaseFilename=TapLingo-Setup-{#AppVersion}
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
@@ -58,7 +58,7 @@ Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "צור קיצור דרך על שולחן העבודה"; GroupDescription: "קיצורי דרך נוספים:"; Flags: unchecked
-Name: "registerprotocol"; Description: "רשום אוטומטית את הפרוטוקול clicktotranslate:// (לאינטגרציה עם Click to Do)"; GroupDescription: "אינטגרציה:"
+Name: "registerprotocol"; Description: "רשום אוטומטית את הפרוטוקול TapLingo:// (לאינטגרציה עם Click to Do)"; GroupDescription: "אינטגרציה:"
 
 [Files]
 ; כל הקבצים מתיקיית ה-publish - כולל ה-DLLs של Windows App SDK
@@ -86,7 +86,7 @@ Filename: "{tmp}\windowsappruntimeinstall-x64.exe"; \
 ; רישום הפרוטוקול אוטומטית (אם המשתמש בחר)
 Filename: "{app}\{#AppExeName}"; \
     Parameters: "--register"; \
-    StatusMsg: "רושם את הפרוטוקול clicktotranslate://..."; \
+    StatusMsg: "רושם את הפרוטוקול TapLingo://..."; \
     Tasks: registerprotocol; \
     Flags: runhidden
 

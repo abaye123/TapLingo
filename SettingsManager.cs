@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace ClickToTranslate
+namespace TapLingo
 {
     public enum TranslationEngine
     {
@@ -43,7 +43,7 @@ namespace ClickToTranslate
     {
         private static readonly string SettingsFolder = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "ClickToTranslate");
+            "TapLingo");
 
         private static readonly string SettingsPath = Path.Combine(SettingsFolder, "settings.json");
 
@@ -100,7 +100,7 @@ namespace ClickToTranslate
                 // WinUI 3 אין MessageBox מובנה - משתמשים ב-Win32
                 Native.MessageBoxW(IntPtr.Zero,
                     $"שגיאה בשמירת ההגדרות: {ex.Message}",
-                    "ClickToTranslate",
+                    "TapLingo",
                     0x10);
             }
         }

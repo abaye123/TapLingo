@@ -8,7 +8,7 @@ using Microsoft.UI.Xaml.Controls;
 using Windows.Graphics;
 using WinRT.Interop;
 
-namespace ClickToTranslate
+namespace TapLingo
 {
     public sealed partial class SettingsWindow : Window
     {
@@ -32,7 +32,7 @@ namespace ClickToTranslate
             InitializeComponent();
             _settings = settings;
 
-            Title = "הגדרות - ClickToTranslate";
+            Title = "הגדרות - TapLingo";
             RootGrid.FlowDirection = FlowDirection.RightToLeft;
 
             SetupTitleBar();
