@@ -11,11 +11,11 @@
 
 #define AppName "TapLingo"
 #define AppVersion "1.0.0"
-#define AppPublisher "TapLingo"
+#define AppPublisher "abaye"
 #define AppExeName "TapLingo.exe"
 
 ; נתיב הפלט של dotnet publish - שנה בהתאם לצורך
-#define SourceFolder "..\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish"
+#define SourceFolder "..\bin\x64\Release\net8.0-windows10.0.19041.0\win-x64"
 
 ; הכתובת ממנה להוריד את Windows App Runtime אם חסר
 #define WinAppRuntimeUrl "https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe"
@@ -35,7 +35,7 @@ Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=dialog
+;PrivilegesRequiredOverridesAllowed=dialog
 MinVersion=10.0.17763
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
@@ -46,8 +46,8 @@ UninstallDisplayIcon={app}\{#AppExeName}
 SetupIconFile=..\Assets\AppIcon.ico
 
 ; אייקונים שיוצגו בלוח הבקרה (Add/Remove Programs)
-WizardImageFile=compiler:WizModernImage-IS.bmp
-WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
+;WizardImageFile=compiler:WizModernImage-IS.bmp
+;WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
 
 ; שפות
 ShowLanguageDialog=auto
@@ -67,7 +67,7 @@ Source: "{#SourceFolder}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdi
 ; מתקין Windows App Runtime - ישולב כקובץ משאב
 ; המשתמש צריך להוריד אותו ידנית ולשים ב-Installer/Redist/
 ; או להשאיר את הקוד ב-[Code] שיוריד ויתקין בזמן התקנה
-Source: "Redist\windowsappruntimeinstall-x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall; Check: NeedsWinAppRuntime
+;Source: "Redist\windowsappruntimeinstall-x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall; Check: NeedsWinAppRuntime
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\Assets\AppIcon.ico"
