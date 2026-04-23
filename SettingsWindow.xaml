@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="ClickToTranslate.SettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClickToTranslate">
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- TitleBar -->
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/>    <!-- Content -->
+            <RowDefinition Height="Auto"/> <!-- Footer buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- Custom TitleBar -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="40">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="10"
+                        VerticalAlignment="Center"
+                        Margin="16,0,0,0">
+                <Image Source="Assets/AppIcon.png"
+                       Width="18" Height="18"
+                       VerticalAlignment="Center"/>
+                <TextBlock Text="הגדרות ClickToTranslate"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="1" Margin="24,16,24,8" Spacing="8">
+            <StackPanel Orientation="Horizontal" Spacing="14" VerticalAlignment="Center">
+                <Image Source="Assets/AppIcon.png"
+                       Width="48" Height="48"
+                       VerticalAlignment="Center"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="הגדרות"
+                               Style="{ThemeResource TitleTextBlockStyle}"/>
+                    <TextBlock Text="ClickToTranslate · תרגום מהיר למסך"
+                               Style="{ThemeResource BodyTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="2" Padding="24,12,24,12" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="8">
+
+                <!-- מנוע תרגום -->
+                <Expander Header="מנוע תרגום"
+                          IsExpanded="True"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="12" Padding="4,8">
+                        <ComboBox x:Name="EngineCombo"
+                                  HorizontalAlignment="Stretch"
+                                  MinWidth="300">
+                            <ComboBoxItem Tag="Google">
+                                <StackPanel>
+                                    <TextBlock Text="Google Translate"/>
+                                    <TextBlock Text="חינמי · ללא מפתח · ~100 שפות"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem Tag="DeepL">
+                                <StackPanel>
+                                    <TextBlock Text="DeepL"/>
+                                    <TextBlock Text="איכותי · דורש API key · ~30 שפות"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Expander>
+
+                <!-- שפת יעד -->
+                <Expander Header="שפת יעד ברירת מחדל"
+                          IsExpanded="True"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="8" Padding="4,8">
+                        <ComboBox x:Name="TargetLangCombo"
+                                  HorizontalAlignment="Stretch"
+                                  MinWidth="300"
+                                  MaxDropDownHeight="320"/>
+                        <TextBlock Text="זו השפה שאליה יתורגם טקסט כברירת מחדל."
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Expander>
+
+                <!-- DeepL API Key -->
+                <Expander x:Name="DeepLExpander"
+                          Header="מפתח API של DeepL"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="12" Padding="4,8">
+                        <PasswordBox x:Name="DeepLKeyBox"
+                                     HorizontalAlignment="Stretch"
+                                     PlaceholderText="הכנס את מפתח ה-API שלך"/>
+                        <ToggleSwitch x:Name="DeepLFreeTierToggle"
+                                      Header="השתמש ב-DeepL Free (api-free.deepl.com)"
+                                      OnContent="כן" OffContent="לא"/>
+                        <HyperlinkButton Content="קבל מפתח חינמי ב-deepl.com/pro-api"
+                                         NavigateUri="https://www.deepl.com/pro-api"/>
+                    </StackPanel>
+                </Expander>
+
+                <!-- חלונית התרגום -->
+                <Expander Header="חלונית התרגום"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="12" Padding="4,8">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="מיקום על המסך"
+                                       Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+                            <ComboBox x:Name="PositionCombo"
+                                      HorizontalAlignment="Stretch"
+                                      MinWidth="300">
+                                <ComboBoxItem Content="ליד סמן העכבר" Tag="cursor"/>
+                                <ComboBoxItem Content="מרכז המסך" Tag="center"/>
+                                <ComboBoxItem Content="פינה ימנית-עליונה" Tag="top-right"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <ToggleSwitch x:Name="AutoCopyToggle"
+                                      Header="העתק תרגום אוטומטית ללוח"
+                                      OnContent="מופעל" OffContent="כבוי"/>
+                    </StackPanel>
+                </Expander>
+
+                <!-- אינטגרציה -->
+                <Expander Header="אינטגרציה עם המערכת"
+                          IsExpanded="True"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="12" Padding="4,8">
+                        <InfoBar x:Name="RegisterStatusBar"
+                                 IsOpen="True"
+                                 IsClosable="False"
+                                 Severity="Informational"
+                                 Title="סטטוס הרישום"
+                                 Message=""/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="RegisterButton"
+                                    Style="{ThemeResource AccentButtonStyle}"
+                                    Click="RegisterButton_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE71B;" FontSize="14"/>
+                                    <TextBlock Text="רשום פרוטוקול"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="UnregisterButton" Click="UnregisterButton_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE711;" FontSize="14"/>
+                                    <TextBlock Text="בטל רישום"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <TextBlock Text="רישום ה-scheme clicktotranslate:// מאפשר ל-Click to Do לפתוח את התוכנה. לא דורש הרשאות אדמין."
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Expander>
+
+                <TextBlock x:Name="SettingsPathText"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                           Margin="4,12,4,0"
+                           Opacity="0.7"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="3"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="24,12">
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
+                <Button x:Name="SaveButton"
+                        Content="שמור"
+                        Style="{ThemeResource AccentButtonStyle}"
+                        MinWidth="110"
+                        Click="SaveButton_Click"/>
+                <Button x:Name="CancelButton"
+                        Content="ביטול"
+                        MinWidth="110"
+                        Click="CancelButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
