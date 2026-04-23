@@ -29,7 +29,7 @@ AppSupportURL=https://github.com/yourname/TapLingo
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
-OutputDir=Output
+OutputDir=..\Release
 OutputBaseFilename=TapLingo-Setup-{#AppVersion}
 Compression=lzma2/ultra64
 SolidCompression=yes
@@ -39,6 +39,11 @@ PrivilegesRequired=lowest
 MinVersion=10.0.17763
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
+LicenseFile=".\license.txt"
+InfoAfterFile=".\thanks.txt"
+
+; Uncomment the following line to run in non administrative install mode (install for current user only.)
+;PrivilegesRequired=lowest
 
 ; התקנת shortcuts גם לתפריט התחל וגם לשולחן עבודה (אופציונלי)
 ChangesAssociations=yes
