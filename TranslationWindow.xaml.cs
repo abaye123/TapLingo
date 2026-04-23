@@ -130,7 +130,7 @@ namespace ClickToTranslate
                 };
                 _micaController = new MicaController();
                 _micaController.AddSystemBackdropTarget(
-                    this.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());
+                    WinRT.CastExtensions.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>(this));
                 _micaController.SetSystemBackdropConfiguration(_backdropConfiguration);
             }
             else if (DesktopAcrylicController.IsSupported())
@@ -142,7 +142,7 @@ namespace ClickToTranslate
                 };
                 _acrylicController = new DesktopAcrylicController();
                 _acrylicController.AddSystemBackdropTarget(
-                    this.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());
+                    WinRT.CastExtensions.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>(this));
                 _acrylicController.SetSystemBackdropConfiguration(_backdropConfiguration);
             }
             // אם אף אחד לא נתמך - פשוט משתמשים ברקע default של המערכת

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -118,7 +119,7 @@ namespace ClickToTranslate
             };
             _micaController = new MicaController();
             _micaController.AddSystemBackdropTarget(
-                this.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());
+                WinRT.CastExtensions.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>(this));
             _micaController.SetSystemBackdropConfiguration(_backdropConfiguration);
         }
 
@@ -126,7 +127,6 @@ namespace ClickToTranslate
         {
             var appWindow = GetAppWindow();
             if (appWindow == null) return;
-            var scale = 1.0; // פשוט, אפשר להשתמש ב-GetDpiForWindow אם צריך
             appWindow.Resize(new SizeInt32(560, 720));
 
             // מרכוז
