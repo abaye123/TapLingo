@@ -1,151 +1,125 @@
-# TapLingo (WinUI 3 unpackaged)
+# TapLingo
 
-גרסת **WinUI 3** של TapLingo - עם Fluent Design מקורי, Mica, פקדי Windows 11 אמיתיים, ו-`setup.exe` יחיד להפצה.
+כלי תרגום מהיר למסך עבור Windows 11, עם אינטגרציה מלאה ל-**Click to Do**.
 
-## 🎨 מה השתנה לעומת גרסת WPF?
+סמן טקסט בכל מקום במערכת, פתח את Click to Do ← תרגם עם TapLingo ← חלונית צפה מציגה את התרגום תוך שנייה. אפשר גם לפתוח את חלונית התרגום ישירות ולהזין טקסט ידנית.
 
-| תכונה | WPF | WinUI 3 |
-|---|---|---|
-| **מראה** | עיצוב ידני | Fluent Design מקורי |
-| **רקע חלון** | צבע אחיד | **Mica** (שקוף חכם) |
-| **פקדים** | Custom Styles | `Expander`, `ToggleSwitch`, `InfoBar`, `ProgressRing` |
-| **ScrollBar** | Custom | מקורי של Windows 11 |
-| **TitleBar** | Custom מלא | מותאם חצי-מקורי + כפתורי מערכת מקוריים |
-| **תמה** | קבועה (כהה) | עוקבת **אוטומטית** אחר Windows (בהיר/כהה) |
+## ✨ תכונות עיקריות
 
-## 📋 דרישות הפצה
+- **אינטגרציה עם Click to Do** — מוצג ישירות בהצעות הפעולה של Windows 11 בלי לדפדף לתיקיית Program Files
+- **שני מנועי תרגום**:
+  - **Google Translate** — חינמי, ללא מפתח, ~100 שפות
+  - **DeepL** — תרגום איכותי במיוחד (דורש API key חינמי)
+- **~20 שפות יעד** כולל עברית, ערבית, אנגלית, רוסית, ספרדית, צרפתית, גרמנית, סינית, יפנית ועוד
+- **זיהוי שפה אוטומטי** של טקסט המקור
+- **חלונית צפה (Always-on-top)** — נשארת מעל שאר החלונות, עם רקע Mica שקוף של Windows 11
+- **הזנה ידנית** — קיצור דרך "תרגום עם TapLingo" פותח חלונית ריקה להקלדת טקסט
+- **מצב כהה/בהיר/לפי המערכת** — ברירת מחדל עוקבת אחר הגדרות Windows
+- **מיקום החלונית ניתן להתאמה** — ליד הסמן, במרכז המסך, או באחת מארבע הפינות
+- **העתקה אוטומטית ללוח** (אופציונלי) — התרגום מוכן להדבקה ברגע שהוא מופיע
+- **תמיכה ב-RTL** — ממשק בעברית עם כפתורי חלון בצד שמאל
 
-המשתמש זקוק ל:
-- ✅ **Windows 10 1809+** או Windows 11
-- ✅ **.NET 8 Desktop Runtime** (~55MB, מופץ אוטומטית על ידי Windows Update)
-- ⚠️ **Windows App Runtime 1.7** (~25MB, מתקין שלנו ידאג לזה)
+## 📥 התקנה
 
-הכל מטופל על ידי ה-`setup.exe` שנייצר.
+1. הורד את `TapLingo-Setup-1.0.0.exe` מ-[דף ה-Releases](https://github.com/abaye123/TapLingo/releases)
+2. הרץ את המתקין (דורש הרשאות אדמין להתקנה עבור כל המשתמשים במחשב)
+3. בזמן ההתקנה אפשר לבחור:
+   - קיצור דרך לתרגום עם TapLingo (פותח חלונית להזנה ידנית)
+   - קיצור דרך על שולחן העבודה
+   - רישום אוטומטי של הפרוטוקול `TapLingo://` ושל האפליקציה ב-Click to Do
+4. אם **Windows App Runtime 1.7** חסר, המתקין יציע לפתוח את דף ההורדה של Microsoft
 
-## 🛠️ בניית הפרויקט
+### דרישות מערכת
 
-### שלב 1: התקנת כלים
+- Windows 10 build 17763 (1809) ומעלה, או Windows 11 (מומלץ — Click to Do זמין רק ב-Windows 11)
+- .NET 8 Desktop Runtime
+- Windows App Runtime 1.7
+
+## 🚀 שימוש
+
+### דרך Click to Do (Windows 11)
+סמן טקסט בכל אפליקציה ← לחץ Win+Click (או פתח את Click to Do) ← בחר "תרגם עם TapLingo" ← החלונית הצפה נפתחת עם התרגום.
+
+### דרך קיצור דרך ידני
+לחץ על "תרגום עם TapLingo" בתפריט התחל ← חלונית ריקה נפתחת ← הקלד או הדבק טקסט ← לחץ "תרגם שוב".
+
+### דרך שורת פקודה
+```
+TapLingo.exe "טקסט לתרגום"
+TapLingo.exe --translate                 # חלונית ריקה
+TapLingo.exe "TapLingo://translate?text=Hello"
+```
+
+### הגדרות
+פתח את חלון ההגדרות (קיצור "TapLingo" הראשי) כדי לבחור:
+- מנוע תרגום (Google / DeepL)
+- שפת יעד ברירת מחדל
+- מפתח API של DeepL
+- מצב כהה/בהיר/לפי המערכת
+- מיקום החלונית
+- העתקה אוטומטית ללוח
+
+## 🛠️ בנייה מהמקור
+
+### כלים נדרשים
 ```powershell
-# .NET 8 SDK
 winget install Microsoft.DotNet.SDK.8
-
-# Inno Setup 6 ליצירת המתקין
 winget install JRSoftware.InnoSetup
 ```
 
-### שלב 2: שחזור packages ובנייה
-
+### בנייה
 ```powershell
-cd TapLingoWinUI
 dotnet restore
 dotnet publish -c Release -r win-x64 --self-contained false
 ```
 
-זה ייצור תיקייה עם כל הקבצים תחת:
-```
-bin\Release\net8.0-windows10.0.19041.0\win-x64\publish\
-```
+התוצר: `bin\x64\Release\net8.0-windows10.0.19041.0\win-x64\publish\`
 
-### שלב 3: הורדת Windows App Runtime
-
-הורד את `windowsappruntimeinstall-x64.exe` לתיקיית `Installer\Redist\`:
-```powershell
-Invoke-WebRequest -Uri "https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe" `
-                  -OutFile "Installer\Redist\windowsappruntimeinstall-x64.exe"
-```
-
-### שלב 4: הרכבת ה-setup.exe
-
+### יצירת setup.exe
 ```powershell
 cd Installer
 & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" TapLingo.iss
 ```
 
-או פשוט פתח את `TapLingo.iss` ב-Inno Setup ולחץ על Build.
-
-**הפלט**: `Installer\Output\TapLingo-Setup-1.0.0.exe` (~50MB)
-
-זה ה-**setup.exe היחיד** שתפיץ למשתמשים.
-
-## 🚀 חוויית המשתמש
-
-1. המשתמש מוריד `TapLingo-Setup-1.0.0.exe`.
-2. מריץ אותו - רואה מתקין מוכר בסגנון Windows.
-3. המתקין מתקין אוטומטית את Windows App Runtime אם חסר.
-4. המתקין רושם את הפרוטוקול `TapLingo://` (אם נבחרה האפשרות).
-5. בסיום - אפשר לפתוח את התוכנה או להשתמש ישירות דרך Click to Do.
+הפלט: `Release\TapLingo-Setup-1.0.0.exe`
 
 ## 📁 מבנה הפרויקט
 
 ```
-TapLingoWinUI/
-├── TapLingo.csproj          # קובץ פרויקט עם WindowsPackageType=None
-├── app.manifest                      # DPI awareness, Windows 11 support
-├── Program.cs                        # Main() מותאם עם Bootstrap.Initialize
-├── App.xaml / App.xaml.cs            # Application class
-├── TranslationWindow.xaml/.cs        # חלונית צפה עם Mica
-├── SettingsWindow.xaml/.cs           # חלון הגדרות עם Expander + ToggleSwitch
-├── TranslationService.cs             # Google + DeepL (ללא שינוי מ-WPF)
-├── SettingsManager.cs                # טעינה/שמירת JSON
-├── UriProtocolHandler.cs             # רישום ה-scheme ברג'יסטרי
-├── Assets/                           # אייקונים (ריק, להוסיף .ico)
+TapLingo/
+├── TapLingo.csproj              # WinUI 3 unpackaged
+├── app.manifest                 # DPI awareness, Windows 11 support
+├── Program.cs                   # Main() עם Bootstrap.Initialize של WinAppSDK
+├── App.xaml(.cs)                # Application class + CLI args parsing
+├── TranslationWindow.xaml(.cs)  # החלונית הצפה
+├── SettingsWindow.xaml(.cs)     # חלון ההגדרות
+├── TranslationService.cs        # Google + DeepL
+├── SettingsManager.cs           # קריאה/כתיבה של settings.json
+├── UriProtocolHandler.cs        # רישום הפרוטוקול TapLingo:// (HKCU)
+├── ThemeHelper.cs               # מצב כהה/בהיר + כפתורי חלון ב-RTL
+├── Assets/                      # AppIcon.ico, AppIcon.png
 └── Installer/
-    ├── TapLingo.iss          # סקריפט Inno Setup
-    ├── Redist/
-    │   ├── README.md
-    │   └── windowsappruntimeinstall-x64.exe  # (להוריד ידנית)
-    └── Output/
-        └── TapLingo-Setup-1.0.0.exe  # ← ה-setup.exe הסופי
+    └── TapLingo.iss             # סקריפט Inno Setup
 ```
 
-## ⚡ השוואה: מה עובד/לא עובד ב-unpackaged
+## 💾 מיקומי קבצים
 
-### ✅ עובד
-- Fluent Design, Mica, Acrylic
-- כל הפקדים של WinUI 3
-- Custom TitleBar עם כפתורי מערכת מקוריים
-- DPI awareness מלא
-- URI protocol handler דרך הרג'יסטרי
-- Dark/Light theme אוטומטי
+- **הגדרות**: `%APPDATA%\TapLingo\settings.json`
+- **יומן שגיאות**: `%APPDATA%\TapLingo\errors.log`
+- **התוכנה**: `C:\Program Files\TapLingo\`
 
-### ❌ לא עובד (דורש packaged עם package identity)
-- **App Actions API** - דורש package identity. באפליקציה unpackaged אנחנו משתמשים בחלופה: URI scheme שרשום ברג'יסטרי (`TapLingo://`). Click to Do יכול לקרוא לנו דרך "פתח באמצעות..." אבל לא נופיע כפעולה מוצעת אוטומטית.
-- Toast notifications עם icon מותאם (עובד בסיסי בלי)
-- File type associations דרך manifest
-- Start menu tiles מותאמים
-- Auto-update דרך App Installer
+## 🔧 פתרון בעיות
 
-> 💡 **אם תרצה App Actions אמיתי בעתיד**: יש אפשרות ביניים הנקראת **"packaged with external location"** שמעניקה package identity תוך שמירה על EXE חיצוני. זה יאפשר רישום כ-Action Provider, אבל מצריך manifest ותהליך build מורכב יותר.
+**"Windows App Runtime לא מותקן"** — הורד והרץ את [המתקין של Microsoft](https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe), ואז הרץ שוב את TapLingo.
 
-## 🎨 אייקון האפליקציה
+**החלון נראה לבן לגמרי** — Mica לא נתמך במערכת הזו (Windows 10 ישן). האפליקציה תחזור אוטומטית לרקע רגיל.
 
-הלוגו שוכן ב-`Assets\AppIcon.ico` (ו-`AppIcon.png` למקומות בתוך ה-UI).
-הוא מופיע ב:
-- ✅ **EXE עצמו** (File Explorer, Alt+Tab, Taskbar) - דרך `<ApplicationIcon>`
-- ✅ **TitleBar של החלונות** - דרך `AppWindow.SetIcon()`
-- ✅ **בתוך ה-UI** (TitleBar + Header של ההגדרות) - דרך `<Image Source="Assets/AppIcon.png"/>`
-- ✅ **קיצורי דרך** (Desktop, Start menu) - דרך `IconFilename` ב-Inno
-- ✅ **Uninstall entry** בלוח הבקרה - דרך `UninstallDisplayIcon`
-- ✅ **Setup.exe עצמו** - דרך `SetupIconFile` ב-Inno
-- ✅ **אייקון הפרוטוקול** ברג'יסטרי (לתצוגה ב-"פתח באמצעות")
+**התוכנה לא עולה** — בדוק את `%APPDATA%\TapLingo\errors.log`.
 
-## 🔧 פתרון בעיות נפוצות
+**Click to Do לא מציע את TapLingo** — ודא שבזמן ההתקנה סומנה האפשרות "רשום אוטומטית את הפרוטוקול TapLingo://". אם לא, אפשר לרשום ידנית דרך כפתור "רשום פרוטוקול" בחלון ההגדרות.
 
-### "חסר Windows App Runtime"
-המתקין אמור להתקין אותו אוטומטית. אם זה לא עבד:
-```powershell
-# התקנה ידנית
-.\windowsappruntimeinstall-x64.exe
-```
-
-### החלון נראה לבן לגמרי
-Mica לא נתמך במערכת (Windows 10 ישנה). האפליקציה תחזור אוטומטית לרקע רגיל.
-
-### האפליקציה לא עולה
-בדוק את הלוג ב: `%APPDATA%\TapLingo\errors.log`
-
-## 📚 מקורות
+## 📚 קישורים
 
 - [Windows App SDK documentation](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/)
-- [Inno Setup documentation](https://jrsoftware.org/ishelp/)
-- [WinUI 3 Gallery](https://apps.microsoft.com/detail/winui-3-gallery/9P3JFPWWDZRC) - אפליקציה להתרשם מכל הפקדים
+- [DeepL API (חינמי)](https://www.deepl.com/pro-api)
+- [Inno Setup](https://jrsoftware.org/isinfo.php)
