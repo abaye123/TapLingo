@@ -179,7 +179,16 @@ namespace TapLingo
                     CenterOnScreen(appWindow);
                     break;
                 case "top-right":
-                    PositionTopRight(appWindow);
+                    PositionCorner(appWindow, horizontalRight: true, verticalBottom: false);
+                    break;
+                case "top-left":
+                    PositionCorner(appWindow, horizontalRight: false, verticalBottom: false);
+                    break;
+                case "bottom-right":
+                    PositionCorner(appWindow, horizontalRight: true, verticalBottom: true);
+                    break;
+                case "bottom-left":
+                    PositionCorner(appWindow, horizontalRight: false, verticalBottom: true);
                     break;
                 case "cursor":
                 default:
@@ -206,13 +215,20 @@ namespace TapLingo
             appWindow.Move(center);
         }
 
-        private void PositionTopRight(AppWindow appWindow)
+        private void PositionCorner(AppWindow appWindow, bool horizontalRight, bool verticalBottom)
         {
             var area = DisplayArea.GetFromWindowId(appWindow.Id, DisplayAreaFallback.Primary);
             if (area == null) return;
-            appWindow.Move(new PointInt32(
-                area.WorkArea.X + area.WorkArea.Width - appWindow.Size.Width - 20,
-                area.WorkArea.Y + 20));
+
+            const int margin = 20;
+            int x = horizontalRight
+                ? area.WorkArea.X + area.WorkArea.Width - appWindow.Size.Width - margin
+                : area.WorkArea.X + margin;
+            int y = verticalBottom
+                ? area.WorkArea.Y + area.WorkArea.Height - appWindow.Size.Height - margin
+                : area.WorkArea.Y + margin;
+
+            appWindow.Move(new PointInt32(x, y));
         }
 
         private void PositionNearCursor(AppWindow appWindow)

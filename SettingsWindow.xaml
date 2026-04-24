@@ -163,6 +163,9 @@
                                 <ComboBoxItem Content="ליד סמן העכבר" Tag="cursor"/>
                                 <ComboBoxItem Content="מרכז המסך" Tag="center"/>
                                 <ComboBoxItem Content="פינה ימנית-עליונה" Tag="top-right"/>
+                                <ComboBoxItem Content="פינה שמאלית-עליונה" Tag="top-left"/>
+                                <ComboBoxItem Content="פינה ימנית-תחתונה" Tag="bottom-right"/>
+                                <ComboBoxItem Content="פינה שמאלית-תחתונה" Tag="bottom-left"/>
                             </ComboBox>
                         </StackPanel>
 
