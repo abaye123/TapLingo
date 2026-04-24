@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
@@ -94,5 +95,33 @@ namespace TapLingo
             catch { }
             return false;
         }
+
+        /// <summary>
+        /// מעביר את כפתורי החלון (סגירה/מזעור) לצד שמאל ע"י הוספת WS_EX_LAYOUTRTL ל-HWND.
+        /// WS_EX_NOINHERITLAYOUT מונע מה-XAML island להתהפך כמראה.
+        /// </summary>
+        public static void EnableRtlCaptionButtons(Window window)
+        {
+            try
+            {
+                var hWnd = WindowNative.GetWindowHandle(window);
+                int exStyle = GetWindowLong(hWnd, GWL_EXSTYLE);
+                if ((exStyle & WS_EX_LAYOUTRTL) == 0)
+                {
+                    SetWindowLong(hWnd, GWL_EXSTYLE, exStyle | WS_EX_LAYOUTRTL | WS_EX_NOINHERITLAYOUT);
+                }
+            }
+            catch { /* אופציונלי - אל תכשיל פתיחת החלון */ }
+        }
+
+        private const int GWL_EXSTYLE = -20;
+        private const int WS_EX_LAYOUTRTL = 0x00400000;
+        private const int WS_EX_NOINHERITLAYOUT = 0x00100000;
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongW")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongW")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
     }
 }

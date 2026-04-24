@@ -47,6 +47,9 @@ namespace TapLingo
             // 2. RTL ברמת הרכיב השורש (WinUI מצריך הגדרה נפרדת)
             RootGrid.FlowDirection = FlowDirection.RightToLeft;
 
+            // 2.5 מעביר את כפתור הסגירה לצד שמאל (RTL)
+            ThemeHelper.EnableRtlCaptionButtons(this);
+
             // 3. TitleBar מותאם אישית (נראה חלק עם Mica)
             SetupCustomTitleBar();
 

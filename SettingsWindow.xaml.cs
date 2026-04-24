@@ -35,6 +35,9 @@ namespace TapLingo
             Title = "הגדרות - TapLingo";
             RootGrid.FlowDirection = FlowDirection.RightToLeft;
 
+            // מעביר את כפתורי סגירה/מזעור לצד שמאל (RTL)
+            ThemeHelper.EnableRtlCaptionButtons(this);
+
             SetupTitleBar();
             TrySetMica();
             SetupWindowSize();
