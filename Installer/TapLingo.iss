@@ -116,37 +116,3 @@ begin
     Result := False;
   end;
 end;
-
-// לפני תחילת ההתקנה: אם ה-runtime חסר, מציעים למשתמש לפתוח את דף ההורדה.
-// המשתמש יכול להמשיך בהתקנה גם בלי - אך האפליקציה לא תרוץ עד שיתקין את ה-runtime ידנית.
-function InitializeSetup(): Boolean;
-var
-  ErrorCode: Integer;
-  Response: Integer;
-begin
-  Result := True;
-  if NeedsWinAppRuntime then
-  begin
-    Response := MsgBox(
-      'Windows App Runtime לא מותקן במערכת.' #13#10 #13#10 +
-      'TapLingo דורש את ה-runtime הזה של Microsoft כדי לפעול.' #13#10 +
-      '(חבילה קטנה, ~25MB, חינמית מ-Microsoft)' #13#10 #13#10 +
-      'האם לפתוח עכשיו את דף ההורדה?' #13#10 #13#10 +
-      '• "כן"  - יפתח את דף ההורדה של Microsoft וההתקנה תבוטל (תוכל להריץ שוב לאחר התקנת ה-runtime)' #13#10 +
-      '• "לא"  - ימשיך בהתקנת TapLingo (יש להתקין את ה-runtime בנפרד לפני ההפעלה)' #13#10 +
-      '• "ביטול" - יבטל את ההתקנה',
-      mbConfirmation, MB_YESNOCANCEL);
-
-    case Response of
-      IDYES:
-        begin
-          ShellExec('open', '{#WinAppRuntimeUrl}', '', '', SW_SHOW, ewNoWait, ErrorCode);
-          Result := False;
-        end;
-      IDCANCEL:
-        begin
-          Result := False;
-        end;
-    end;
-  end;
-end;
