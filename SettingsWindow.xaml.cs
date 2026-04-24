@@ -39,6 +39,18 @@ namespace TapLingo
             TrySetMica();
             SetupWindowSize();
 
+            // ערכת נושא
+            for (int i = 0; i < ThemeCombo.Items.Count; i++)
+            {
+                if (ThemeCombo.Items[i] is ComboBoxItem c && (string)c.Tag! == _settings.Theme.ToString())
+                {
+                    ThemeCombo.SelectedIndex = i;
+                    break;
+                }
+            }
+            if (ThemeCombo.SelectedIndex < 0) ThemeCombo.SelectedIndex = 0;
+            ApplyCurrentTheme();
+
             // שפות
             foreach (var l in Languages)
                 TargetLangCombo.Items.Add(new ComboBoxItem { Content = l.Display, Tag = l.Code });
@@ -179,8 +191,31 @@ namespace TapLingo
             if (PositionCombo.SelectedItem is ComboBoxItem c2 && c2.Tag is string pos)
                 _settings.WindowPosition = pos;
 
+            _settings.Theme = GetSelectedTheme();
+
             SettingsManager.Save(_settings);
             Close();
+        }
+
+        private void ThemeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // תצוגה מקדימה חיה - ההגדרה נשמרת רק בלחיצה על "שמור"
+            ApplyCurrentTheme();
+        }
+
+        private AppTheme GetSelectedTheme()
+        {
+            if (ThemeCombo.SelectedItem is ComboBoxItem cbi && cbi.Tag is string tag
+                && Enum.TryParse<AppTheme>(tag, out var theme))
+            {
+                return theme;
+            }
+            return AppTheme.System;
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            ThemeHelper.Apply(this, GetSelectedTheme(), _backdropConfiguration);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();

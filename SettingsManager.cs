@@ -11,11 +11,22 @@ namespace TapLingo
         DeepL
     }
 
+    public enum AppTheme
+    {
+        System,
+        Light,
+        Dark
+    }
+
     public class AppSettings
     {
         /// <summary>מנוע התרגום הנוכחי</summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public TranslationEngine Engine { get; set; } = TranslationEngine.Google;
+
+        /// <summary>ערכת נושא של הממשק (System = לפי מצב המערכת)</summary>
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public AppTheme Theme { get; set; } = AppTheme.System;
 
         /// <summary>שפת יעד ברירת מחדל (קוד ISO, למשל "he", "en", "ar")</summary>
         public string TargetLanguage { get; set; } = "he";

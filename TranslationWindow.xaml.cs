@@ -53,6 +53,9 @@ namespace TapLingo
             // 4. הפעלת Mica/Acrylic (Fluent background)
             TrySetSystemBackdrop();
 
+            // 4.5 החלת ערכת הנושא הנבחרת (בהיר/כהה/מערכת)
+            ThemeHelper.Apply(this, _settings.Theme, _backdropConfiguration);
+
             // 5. מילוי קומבו השפות
             PopulateLanguageCombo();
 

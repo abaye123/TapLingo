@@ -48,6 +48,44 @@
         <ScrollViewer Grid.Row="2" Padding="24,12,24,12" VerticalScrollBarVisibility="Auto">
             <StackPanel Spacing="8">
 
+                <!-- מראה (ערכת נושא) -->
+                <Expander Header="מראה"
+                          IsExpanded="True"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="8" Padding="4,8">
+                        <ComboBox x:Name="ThemeCombo"
+                                  HorizontalAlignment="Stretch"
+                                  MinWidth="300"
+                                  SelectionChanged="ThemeCombo_SelectionChanged">
+                            <ComboBoxItem Tag="System">
+                                <StackPanel>
+                                    <TextBlock Text="לפי מצב המערכת"/>
+                                    <TextBlock Text="מתאים את עצמו להגדרות Windows (ברירת מחדל)"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem Tag="Light">
+                                <StackPanel>
+                                    <TextBlock Text="מצב בהיר"/>
+                                    <TextBlock Text="רקע בהיר, טקסט כהה"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem Tag="Dark">
+                                <StackPanel>
+                                    <TextBlock Text="מצב כהה"/>
+                                    <TextBlock Text="רקע כהה, טקסט בהיר"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Expander>
+
                 <!-- מנוע תרגום -->
                 <Expander Header="מנוע תרגום"
                           IsExpanded="True"
