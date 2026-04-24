@@ -139,7 +139,7 @@ namespace TapLingo
         {
             var appWindow = GetAppWindow();
             if (appWindow == null) return;
-            appWindow.Resize(new SizeInt32(560, 720));
+            appWindow.Resize(new SizeInt32(698, 896));
 
             // מרכוז
             var area = DisplayArea.GetFromWindowId(appWindow.Id, DisplayAreaFallback.Primary);
