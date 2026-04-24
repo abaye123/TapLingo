@@ -34,16 +34,13 @@ OutputBaseFilename=TapLingo-Setup-{#AppVersion}
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
-PrivilegesRequired=lowest
-;PrivilegesRequiredOverridesAllowed=dialog
+; התקנה עבור כל המשתמשים - דורש הרשאות אדמין
+PrivilegesRequired=admin
 MinVersion=10.0.17763
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 LicenseFile=".\license.txt"
 InfoAfterFile=".\thanks.txt"
-
-; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
 
 ; התקנת shortcuts גם לתפריט התחל וגם לשולחן עבודה (אופציונלי)
 ChangesAssociations=yes
@@ -82,21 +79,39 @@ Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon; IconFilename: "{app}\Assets\AppIcon.ico"
 Name: "{autodesktop}\תרגום עם {#AppName}"; Filename: "{app}\{#AppExeName}"; Parameters: "--translate"; IconFilename: "{app}\Assets\AppIcon.ico"; Comment: "פתח את חלונית התרגום להזנה ידנית"; Tasks: desktopicon; Check: IsTaskSelected('translateshortcut')
 
-[Run]
-; רישום הפרוטוקול אוטומטית (אם המשתמש בחר)
-Filename: "{app}\{#AppExeName}"; \
-    Parameters: "--register"; \
-    StatusMsg: "רושם את הפרוטוקול TapLingo://..."; \
-    Tasks: registerprotocol; \
-    Flags: runhidden
+[Registry]
+; === רישום האפליקציה ברשימת "פתח באמצעות" של Windows (HKLM\...\Applications\TapLingo.exe) ===
+; זה מה שגורם ל-Click to Do ולדיאלוג "Open with" הכללי להציע את TapLingo מראש
+; בלי שהמשתמש יצטרך לבחור "עוד אפליקציות" ולדפדף ל-Program Files.
+Root: HKLM; Subkey: "Software\Classes\Applications\{#AppExeName}"; ValueType: string; ValueName: "FriendlyAppName"; ValueData: "{#AppName}"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Classes\Applications\{#AppExeName}"; ValueType: string; ValueName: "ApplicationDescription"; ValueData: "כלי תרגום מהיר עם אינטגרציית Click to Do"
+Root: HKLM; Subkey: "Software\Classes\Applications\{#AppExeName}\DefaultIcon"; ValueType: string; ValueData: """{app}\Assets\AppIcon.ico"""
+Root: HKLM; Subkey: "Software\Classes\Applications\{#AppExeName}\shell\open\command"; ValueType: string; ValueData: """{app}\{#AppExeName}"" ""%1"""
+; תומך גם בפעולת "תרגום" כווריב מפורש - לזיהוי ברור יותר ע"י Click to Do
+Root: HKLM; Subkey: "Software\Classes\Applications\{#AppExeName}\shell\translate"; ValueType: string; ValueName: ""; ValueData: "תרגם עם {#AppName}"
+Root: HKLM; Subkey: "Software\Classes\Applications\{#AppExeName}\shell\translate\command"; ValueType: string; ValueData: """{app}\{#AppExeName}"" ""%1"""
 
+; === רישום הפרוטוקול TapLingo:// machine-wide (מחליף את --register) ===
+Root: HKLM; Subkey: "Software\Classes\TapLingo"; ValueType: string; ValueData: "URL:TapLingo Protocol"; Tasks: registerprotocol; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Classes\TapLingo"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Tasks: registerprotocol
+Root: HKLM; Subkey: "Software\Classes\TapLingo\DefaultIcon"; ValueType: string; ValueData: """{app}\Assets\AppIcon.ico"""; Tasks: registerprotocol
+Root: HKLM; Subkey: "Software\Classes\TapLingo\shell\open\command"; ValueType: string; ValueData: """{app}\{#AppExeName}"" ""%1"""; Tasks: registerprotocol
+
+; === Capabilities + RegisteredApplications - מכניס את TapLingo להגדרות "אפליקציות ברירת מחדל" של Windows ===
+Root: HKLM; Subkey: "Software\{#AppName}\Capabilities"; ValueType: string; ValueName: "ApplicationName"; ValueData: "{#AppName}"; Tasks: registerprotocol; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\{#AppName}\Capabilities"; ValueType: string; ValueName: "ApplicationDescription"; ValueData: "כלי תרגום מהיר עם אינטגרציית Click to Do"; Tasks: registerprotocol
+Root: HKLM; Subkey: "Software\{#AppName}\Capabilities"; ValueType: string; ValueName: "ApplicationIcon"; ValueData: """{app}\Assets\AppIcon.ico"""; Tasks: registerprotocol
+Root: HKLM; Subkey: "Software\{#AppName}\Capabilities\URLAssociations"; ValueType: string; ValueName: "TapLingo"; ValueData: "TapLingo"; Tasks: registerprotocol
+Root: HKLM; Subkey: "Software\RegisteredApplications"; ValueType: string; ValueName: "{#AppName}"; ValueData: "Software\{#AppName}\Capabilities"; Tasks: registerprotocol; Flags: uninsdeletevalue
+
+[Run]
 ; הפעל את התוכנה בסיום ההתקנה
 Filename: "{app}\{#AppExeName}"; \
     Description: "{cm:LaunchProgram,{#AppName}}"; \
     Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
-; ביטול רישום הפרוטוקול לפני ההסרה
+; ניקוי רישום פרוטוקול ברמת המשתמש (HKCU) - אם המשתמש השתמש בכפתור "רשום פרוטוקול" בהגדרות
 Filename: "{app}\{#AppExeName}"; \
     Parameters: "--unregister"; \
     Flags: runhidden; \
