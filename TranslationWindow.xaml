@@ -164,6 +164,10 @@
                         ToolTipService.ToolTip="הגדרות">
                     <FontIcon Glyph="&#xE713;" FontSize="14"/>
                 </Button>
+                <Button x:Name="AboutButton" Click="AboutButton_Click"
+                        ToolTipService.ToolTip="אודות">
+                    <FontIcon Glyph="&#xE946;" FontSize="14"/>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

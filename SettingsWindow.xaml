@@ -106,7 +106,7 @@
                             <ComboBoxItem Tag="DeepL">
                                 <StackPanel>
                                     <TextBlock Text="DeepL"/>
-                                    <TextBlock Text="איכותי · דורש API key · ~30 שפות"
+                                    <TextBlock Text="איכותי · דורש מפתח API ייעודי (חינמי) · ~30 שפות"
                                                Style="{ThemeResource CaptionTextBlockStyle}"
                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                                 </StackPanel>
@@ -207,6 +207,46 @@
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Expander>
+
+                <!-- אודות -->
+                <Expander x:Name="AboutExpander"
+                          Header="אודות"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <StackPanel Spacing="14" Padding="4,8">
+                        <StackPanel Orientation="Horizontal" Spacing="14">
+                            <Image Source="Assets/AppIcon.png"
+                                   Width="56" Height="56"
+                                   VerticalAlignment="Top"/>
+                            <StackPanel VerticalAlignment="Center" Spacing="2">
+                                <TextBlock Text="TapLingo"
+                                           Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                                <TextBlock x:Name="AboutVersionText"
+                                           Style="{ThemeResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <TextBlock Text="כלי תרגום מהיר למסך עם אינטגרציית Click to Do"
+                                           Style="{ThemeResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="פותח על ידי abaye"
+                                       Style="{ThemeResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="קוד פתוח · תרומות ודיווח על באגים מתקבלים בברכה"
+                                       Style="{ThemeResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <HyperlinkButton Content="GitHub: abaye123/TapLingo"
+                                             NavigateUri="https://github.com/abaye123/TapLingo"/>
+                            <HyperlinkButton Content="דיווח על באג"
+                                             NavigateUri="https://github.com/abaye123/TapLingo/issues"/>
+                        </StackPanel>
                     </StackPanel>
                 </Expander>
 

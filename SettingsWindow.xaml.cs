@@ -27,7 +27,7 @@ namespace TapLingo
             new("vi", "ויאטנמית"), new("id", "אינדונזית")
         };
 
-        public SettingsWindow(AppSettings settings)
+        public SettingsWindow(AppSettings settings, bool focusAbout = false)
         {
             InitializeComponent();
             _settings = settings;
@@ -39,6 +39,13 @@ namespace TapLingo
             ThemeHelper.EnableRtlCaptionButtons(this);
 
             SetupTitleBar();
+            PopulateAboutSection();
+
+            if (focusAbout)
+            {
+                AboutExpander.IsExpanded = true;
+                AboutExpander.Loaded += (_, _) => AboutExpander.StartBringIntoView();
+            }
             TrySetMica();
             SetupWindowSize();
 
@@ -163,6 +170,22 @@ namespace TapLingo
         #endregion
 
         #region Logic
+
+        private void PopulateAboutSection()
+        {
+            try
+            {
+                var asm = typeof(SettingsWindow).Assembly;
+                var version = asm.GetName().Version;
+                AboutVersionText.Text = version != null
+                    ? $"גרסה {version.Major}.{version.Minor}.{version.Build}"
+                    : "גרסה 1.0.0";
+            }
+            catch
+            {
+                AboutVersionText.Text = "גרסה 1.0.0";
+            }
+        }
 
         private void UpdateRegisterStatus()
         {

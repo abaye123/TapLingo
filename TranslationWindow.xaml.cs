@@ -361,6 +361,12 @@ namespace TapLingo
             win.Activate();
         }
 
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new SettingsWindow(_settings, focusAbout: true);
+            win.Activate();
+        }
+
         private static void CopyToClipboard(string text)
         {
             try
