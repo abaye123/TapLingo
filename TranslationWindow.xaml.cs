@@ -68,10 +68,19 @@ namespace TapLingo
             // 7. topmost (חלונית צפה)
             SetTopmost(true);
 
-            // 8. תרגום ראשוני ברגע שהחלון נטען
+            // 8. תרגום ראשוני ברגע שהחלון נטען (או מיקוד בתיבת המקור אם ריק)
             Activated += async (_, _) =>
             {
-                if (LoadingPanel.Visibility == Visibility.Visible && string.IsNullOrEmpty(TranslatedTextBox.Text))
+                if (LoadingPanel.Visibility != Visibility.Visible || !string.IsNullOrEmpty(TranslatedTextBox.Text))
+                    return;
+
+                if (string.IsNullOrWhiteSpace(_sourceText))
+                {
+                    // מצב הזנה ידנית - ממתינים שהמשתמש יקליד ויבקש תרגום
+                    LoadingPanel.Visibility = Visibility.Collapsed;
+                    SourceTextBox.Focus(FocusState.Programmatic);
+                }
+                else
                 {
                     await TranslateAsync();
                 }

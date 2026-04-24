@@ -28,6 +28,7 @@ namespace TapLingo
             // טיפול בארגומנטים של שורת פקודה
             var cmdArgs = Environment.GetCommandLineArgs();
             string? textToTranslate = null;
+            bool openTranslateWindowEmpty = false;
 
             if (cmdArgs.Length > 1)
             {
@@ -50,14 +51,23 @@ namespace TapLingo
                     return;
                 }
 
-                textToTranslate = ExtractText(firstArg);
+                // פתיחת חלונית תרגום ריקה להזנה ידנית
+                if (firstArg.Equals("--translate", StringComparison.OrdinalIgnoreCase))
+                {
+                    openTranslateWindowEmpty = true;
+                    textToTranslate = cmdArgs.Length > 2 ? ExtractText(cmdArgs[2]) : string.Empty;
+                }
+                else
+                {
+                    textToTranslate = ExtractText(firstArg);
+                }
             }
 
             var settings = SettingsManager.Load();
 
-            if (!string.IsNullOrWhiteSpace(textToTranslate))
+            if (openTranslateWindowEmpty || !string.IsNullOrWhiteSpace(textToTranslate))
             {
-                _mainWindow = new TranslationWindow(textToTranslate, settings);
+                _mainWindow = new TranslationWindow(textToTranslate ?? string.Empty, settings);
             }
             else
             {

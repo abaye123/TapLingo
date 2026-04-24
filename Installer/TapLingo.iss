@@ -63,6 +63,7 @@ Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "צור קיצור דרך על שולחן העבודה"; GroupDescription: "קיצורי דרך נוספים:"; Flags: unchecked
+Name: "translateshortcut"; Description: "הוסף קיצור דרך 'תרגום עם {#AppName}' (פותח חלונית להזנה ידנית)"; GroupDescription: "קיצורי דרך נוספים:"
 Name: "registerprotocol"; Description: "רשום אוטומטית את הפרוטוקול TapLingo:// (לאינטגרציה עם Click to Do)"; GroupDescription: "אינטגרציה:"
 
 [Files]
@@ -76,18 +77,12 @@ Source: "{#SourceFolder}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdi
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\Assets\AppIcon.ico"
-Name: "{group}\הגדרות {#AppName}"; Filename: "{app}\{#AppExeName}"; Parameters: "--settings"; IconFilename: "{app}\Assets\AppIcon.ico"
+Name: "{group}\תרגום עם {#AppName}"; Filename: "{app}\{#AppExeName}"; Parameters: "--translate"; IconFilename: "{app}\Assets\AppIcon.ico"; Comment: "פתח את חלונית התרגום להזנה ידנית"; Tasks: translateshortcut
 Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon; IconFilename: "{app}\Assets\AppIcon.ico"
+Name: "{autodesktop}\תרגום עם {#AppName}"; Filename: "{app}\{#AppExeName}"; Parameters: "--translate"; IconFilename: "{app}\Assets\AppIcon.ico"; Comment: "פתח את חלונית התרגום להזנה ידנית"; Tasks: desktopicon; Check: IsTaskSelected('translateshortcut')
 
 [Run]
-; התקן Windows App Runtime אם חסר
-Filename: "{tmp}\windowsappruntimeinstall-x64.exe"; \
-    Parameters: "--quiet"; \
-    StatusMsg: "מתקין Windows App Runtime..."; \
-    Check: NeedsWinAppRuntime; \
-    Flags: waituntilterminated
-
 ; רישום הפרוטוקול אוטומטית (אם המשתמש בחר)
 Filename: "{app}\{#AppExeName}"; \
     Parameters: "--register"; \
@@ -122,5 +117,36 @@ begin
   end;
 end;
 
-// אפשר גם להוריד את ה-runtime מהאינטרנט אם לא שולב בהתקנה
-// (דורש הוספת [Code] מורחב יותר עם InetDownload)
+// לפני תחילת ההתקנה: אם ה-runtime חסר, מציעים למשתמש לפתוח את דף ההורדה.
+// המשתמש יכול להמשיך בהתקנה גם בלי - אך האפליקציה לא תרוץ עד שיתקין את ה-runtime ידנית.
+function InitializeSetup(): Boolean;
+var
+  ErrorCode: Integer;
+  Response: Integer;
+begin
+  Result := True;
+  if NeedsWinAppRuntime then
+  begin
+    Response := MsgBox(
+      'Windows App Runtime לא מותקן במערכת.' #13#10 #13#10 +
+      'TapLingo דורש את ה-runtime הזה של Microsoft כדי לפעול.' #13#10 +
+      '(חבילה קטנה, ~25MB, חינמית מ-Microsoft)' #13#10 #13#10 +
+      'האם לפתוח עכשיו את דף ההורדה?' #13#10 #13#10 +
+      '• "כן"  - יפתח את דף ההורדה של Microsoft וההתקנה תבוטל (תוכל להריץ שוב לאחר התקנת ה-runtime)' #13#10 +
+      '• "לא"  - ימשיך בהתקנת TapLingo (יש להתקין את ה-runtime בנפרד לפני ההפעלה)' #13#10 +
+      '• "ביטול" - יבטל את ההתקנה',
+      mbConfirmation, MB_YESNOCANCEL);
+
+    case Response of
+      IDYES:
+        begin
+          ShellExec('open', '{#WinAppRuntimeUrl}', '', '', SW_SHOW, ewNoWait, ErrorCode);
+          Result := False;
+        end;
+      IDCANCEL:
+        begin
+          Result := False;
+        end;
+    end;
+  end;
+end;

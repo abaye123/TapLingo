@@ -73,7 +73,8 @@
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
                              Padding="0"
-                             FontSize="13"/>
+                             FontSize="13"
+                             PlaceholderText="הקלד כאן טקסט לתרגום..."/>
                 </ScrollViewer>
             </StackPanel>
         </Border>
