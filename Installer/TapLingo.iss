@@ -10,12 +10,19 @@
 ; ============================================================================
 
 #define AppName "TapLingo"
-#define AppVersion "1.0.0"
+; ניתן לדרוס מה-CLI: ISCC /DAppVersion=1.1.0 TapLingo.iss (משמש ב-GitHub Actions)
+#ifndef AppVersion
+  #define AppVersion "1.0.0"
+#endif
 #define AppPublisher "abaye"
 #define AppExeName "TapLingo.exe"
 
-; נתיב הפלט של dotnet publish - שנה בהתאם לצורך
-#define SourceFolder "..\bin\x64\Release\net8.0-windows10.0.19041.0\win-x64"
+; נתיב הפלט של הבנייה - שנה בהתאם לצורך.
+; MSBuild לא תמיד מייצר את אותו מבנה תיקיות, ולכן גם זה ניתן לדריסה מה-CLI:
+; ISCC /DSourceFolder=..\bin\x64\Release\net8.0-windows10.0.19041.0 TapLingo.iss
+#ifndef SourceFolder
+  #define SourceFolder "..\bin\x64\Release\net8.0-windows10.0.19041.0\win-x64"
+#endif
 
 ; הכתובת ממנה להוריד את Windows App Runtime אם חסר
 #define WinAppRuntimeUrl "https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe"
